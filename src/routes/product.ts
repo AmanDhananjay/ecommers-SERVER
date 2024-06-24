@@ -11,7 +11,17 @@ router.get("/", async (_, res: Response) => {
 
   res.json({ products });
 });
-
+router.post("/addproduct", async (req, res) => {
+  const { productName ,price,description,stockQuantity,imageURL} = req.body;
+  try {
+    // const Name = await ProductModel.findOne({productName});
+    const product = new UserModel({ productName ,price,description,stockQuantity,imageURL });
+    await product.save();
+    res.json({ message: "product add  successfully" });
+  } catch (err) {
+    res.status(500).json({ type: err });
+  }
+});
 router.post("/checkout", verifyToken, async (req: Request, res: Response) => {
   const { customerID, cartItems } = req.body;
   try {
