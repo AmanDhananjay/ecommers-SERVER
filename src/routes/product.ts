@@ -12,11 +12,11 @@ router.get("/", async (_, res: Response) => {
   res.json({ products });
 });
 router.post("/addproduct", async (req, res) => {
-  const { productName ,price,description,stockQuantity,imageURL} = req.body;
+  const { productName,price,description,stockQuantity} = req.body;
   try {
     // const Name = await ProductModel.findOne({productName});
-    const product = new UserModel({ productName ,price,description,stockQuantity,imageURL });
-    await product.save();
+    const newproduct = new ProductModel({ productName ,price,description,stockQuantity });
+    await newproduct.save();
     res.json({ message: "product add  successfully" });
   } catch (err) {
     res.status(500).json({ type: err });
